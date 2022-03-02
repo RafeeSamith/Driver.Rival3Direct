@@ -1,0 +1,14 @@
+E:\Downloads\Testing\2022\Driver.Rival3Direct\Driver.Rival3Direct\bin\Release\Driver.Rival3Direct.dll.config
+E:\Downloads\Testing\2022\Driver.Rival3Direct\Driver.Rival3Direct\bin\Release\Driver.Rival3Direct.dll
+E:\Downloads\Testing\2022\Driver.Rival3Direct\Driver.Rival3Direct\bin\Release\Driver.Rival3Direct.pdb
+E:\Downloads\Testing\2022\Driver.Rival3Direct\Driver.Rival3Direct\bin\Release\HidSharp.dll
+E:\Downloads\Testing\2022\Driver.Rival3Direct\Driver.Rival3Direct\bin\Release\Newtonsoft.Json.dll
+E:\Downloads\Testing\2022\Driver.Rival3Direct\Driver.Rival3Direct\bin\Release\SimpleLed.dll
+E:\Downloads\Testing\2022\Driver.Rival3Direct\Driver.Rival3Direct\bin\Release\HidSharp.pdb
+E:\Downloads\Testing\2022\Driver.Rival3Direct\Driver.Rival3Direct\bin\Release\HidSharp.xml
+E:\Downloads\Testing\2022\Driver.Rival3Direct\Driver.Rival3Direct\bin\Release\Newtonsoft.Json.xml
+E:\Downloads\Testing\2022\Driver.Rival3Direct\Driver.Rival3Direct\obj\Release\Driver.Rival3Direct.csproj.AssemblyReference.cache
+E:\Downloads\Testing\2022\Driver.Rival3Direct\Driver.Rival3Direct\obj\Release\Driver.Rival3Direct.csproj.CoreCompileInputs.cache
+E:\Downloads\Testing\2022\Driver.Rival3Direct\Driver.Rival3Direct\obj\Release\Driver.Rival3Direct.csproj.CopyComplete
+E:\Downloads\Testing\2022\Driver.Rival3Direct\Driver.Rival3Direct\obj\Release\Driver.Rival3Direct.dll
+E:\Downloads\Testing\2022\Driver.Rival3Direct\Driver.Rival3Direct\obj\Release\Driver.Rival3Direct.pdb

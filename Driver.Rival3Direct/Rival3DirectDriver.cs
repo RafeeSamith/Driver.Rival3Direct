@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using SimpleLed;
 using Rival3Support;
+using System.Drawing;
+using System.IO;
+using System.Reflection;
 
 namespace Driver.Rival3Direct
 {
@@ -14,6 +17,9 @@ namespace Driver.Rival3Direct
 
         public event Events.DeviceChangeEventHandler DeviceAdded;
         public event Events.DeviceChangeEventHandler DeviceRemoved;
+
+        public static Assembly assembly = Assembly.GetExecutingAssembly();
+        public static Stream imageStream = assembly.GetManifestResourceStream("Driver.Rival3Direct.rival.png");
 
 
         public void Configure(DriverDetails driverDetails)
@@ -28,14 +34,16 @@ namespace Driver.Rival3Direct
         ControlDevice.LedUnit[] leds = new ControlDevice.LedUnit[4];
         public List<ControlDevice> GetDevices()
         {
+
             return new List<ControlDevice>
             {
                 new ControlDevice
                 {
-                    Name = "Steelseries Rival 3 (Direct)",
+                    Name = "Steelseries Rival 3",
                     DeviceType = DeviceTypes.Mouse,
                     Driver = this,
-                    LEDs = leds
+                    LEDs = leds,
+                    ProductImage = (Bitmap)System.Drawing.Image.FromStream(imageStream),
                 }
             };
 
@@ -43,7 +51,10 @@ namespace Driver.Rival3Direct
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            for (byte i = 1; i <= 4; i++)
+            {
+                r3controller.packets(i, 0, 0, 0);
+            }
         }
 
         public T GetConfig<T>() where T : SLSConfigData
@@ -61,9 +72,9 @@ namespace Driver.Rival3Direct
                 SupportsCustomConfig = false,
                 Id = Guid.Parse("afeeea5d-49b9-43dd-bb66-dfd20c1c3751"),
                 Author = "Rafee",
-                Blurb = "My first attempt at making a driver, for direct control of the Steelseries Rival 3",
-                CurrentVersion = new ReleaseNumber("1.1.0.6"),
-                IsPublicRelease = false,
+                Blurb = "Driver for direct control of the Steelseries Rival 3",
+                CurrentVersion = new ReleaseNumber("1.3.0.10"),
+                IsPublicRelease = true,
                 GitHubLink = "https://github.com/RafeeSamith/Driver.Rival3Direct"
             };
         }
@@ -75,12 +86,11 @@ namespace Driver.Rival3Direct
 
         public string Name()
         {
-            return "Steelseries Rival 3 Direct";
+            return "Steelseries Rival 3 (Direct)";
         }
 
         public class Rival3LEDData : ControlDevice.LEDData
         {
-
             public float R { get; set; }
             public float G { get; set; }
             public float B { get; set; }
@@ -100,6 +110,7 @@ namespace Driver.Rival3Direct
                 };
             }
         }
+
         public void Pull(ControlDevice controlDevice)
         {
             throw new NotImplementedException();
@@ -108,12 +119,12 @@ namespace Driver.Rival3Direct
         public void Push(ControlDevice controlDevice)
         {
             r3controller = new Rival3Controller();
-            for (int i = 0; i < 4; i++)
+            for (byte i = 0; i < 4; i++)
             {
                 byte r = (byte)controlDevice.LEDs[i].Color.Red;
                 byte g = (byte)controlDevice.LEDs[i].Color.Green;
                 byte b = (byte)controlDevice.LEDs[i].Color.Blue;
-                r3controller.packets((byte)i, r, g, b);
+                r3controller.packets(i, r, g, b);
             }
             //r3controller = new Rival3Controller();
             //r3controller.packets(255, 25, 0);
