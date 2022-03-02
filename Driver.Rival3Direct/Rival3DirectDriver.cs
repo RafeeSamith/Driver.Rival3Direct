@@ -25,7 +25,7 @@ namespace Driver.Rival3Direct
             }
         }
 
-        ControlDevice.LedUnit[] leds = new ControlDevice.LedUnit[1];
+        ControlDevice.LedUnit[] leds = new ControlDevice.LedUnit[4];
         public List<ControlDevice> GetDevices()
         {
             return new List<ControlDevice>
@@ -62,7 +62,7 @@ namespace Driver.Rival3Direct
                 Id = Guid.Parse("afeeea5d-49b9-43dd-bb66-dfd20c1c3751"),
                 Author = "Rafee",
                 Blurb = "My first attempt at making a driver, for direct control of the Steelseries Rival 3",
-                CurrentVersion = new ReleaseNumber("1.0.0.6"),
+                CurrentVersion = new ReleaseNumber("1.1.0.6"),
                 IsPublicRelease = false,
                 GitHubLink = "https://github.com/RafeeSamith/Driver.Rival3Direct"
             };
@@ -88,7 +88,7 @@ namespace Driver.Rival3Direct
 
         public Rival3DirectDriver()
         {
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 4; i++)
             {
                 leds[i] = new ControlDevice.LedUnit
                 {
@@ -108,13 +108,12 @@ namespace Driver.Rival3Direct
         public void Push(ControlDevice controlDevice)
         {
             r3controller = new Rival3Controller();
-            r3controller.packets(255, 0, 0);
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 4; i++)
             {
                 byte r = (byte)controlDevice.LEDs[i].Color.Red;
                 byte g = (byte)controlDevice.LEDs[i].Color.Green;
                 byte b = (byte)controlDevice.LEDs[i].Color.Blue;
-                r3controller.packets(r, g, b);
+                r3controller.packets((byte)i, r, g, b);
             }
             //r3controller = new Rival3Controller();
             //r3controller.packets(255, 25, 0);
