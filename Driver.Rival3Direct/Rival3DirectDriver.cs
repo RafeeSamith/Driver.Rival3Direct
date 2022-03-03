@@ -15,6 +15,7 @@ namespace Driver.Rival3Direct
     {
         Rival3Controller r3controller;
 
+        public event EventHandler DeviceRescanRequired;
         public event Events.DeviceChangeEventHandler DeviceAdded;
         public event Events.DeviceChangeEventHandler DeviceRemoved;
 
@@ -31,21 +32,53 @@ namespace Driver.Rival3Direct
             }
         }
 
+        public static List<USBDevice> Rival3USB = new List<USBDevice>
+        {
+            new USBDevice{VID = 0x1038, HID = 0x184C, DeviceName = "Rival 3", DevicePrettyName = "Rival 3", DeviceType = DeviceTypes.Mouse, ManufacturerName = "Steelseries"},
+            new USBDevice{VID = 0x1038, HID = 0x1824, DeviceName = "Rival 3", DevicePrettyName = "Rival 3", DeviceType = DeviceTypes.Mouse, ManufacturerName = "Steelseries"}
+        };
+
         ControlDevice.LedUnit[] leds = new ControlDevice.LedUnit[4];
         public List<ControlDevice> GetDevices()
         {
+            List<ControlDevice> devices = new List<ControlDevice>();
 
-            return new List<ControlDevice>
+            var connectedMice = SLSManager.GetSupportedDevices(Rival3USB);
+
+            ControlDevice mouse = new ControlDevice
             {
-                new ControlDevice
-                {
-                    Name = "Steelseries Rival 3",
-                    DeviceType = DeviceTypes.Mouse,
-                    Driver = this,
-                    LEDs = leds,
-                    ProductImage = (Bitmap)System.Drawing.Image.FromStream(imageStream),
-                }
+                //Name = "Steelseries Rival 3",
+                DeviceType = SimpleLed.DeviceTypes.Mouse,
+                Driver = this,
+                LEDs = leds,
+                ProductImage = (Bitmap)System.Drawing.Image.FromStream(imageStream),
             };
+            
+
+            if (connectedMice.Any())
+            {
+
+                if (connectedMice.Any())
+                {
+                    USBDevice first = connectedMice.First();
+
+                    mouse.Name = first.DevicePrettyName;
+                }
+
+                devices.Add(mouse);
+            }
+            return devices;
+            //return new List<ControlDevice>
+            //{
+            //    new ControlDevice
+            //    {
+            //        Name = "Steelseries Rival 3",
+            //        DeviceType = SimpleLed.DeviceTypes.Mouse,
+            //        Driver = this,
+            //        LEDs = leds,
+            //        ProductImage = (Bitmap)System.Drawing.Image.FromStream(imageStream),
+            //    }
+            //};
 
         }
 
